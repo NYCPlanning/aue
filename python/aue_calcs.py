@@ -1,6 +1,33 @@
 import numpy as np
 
 def find_next(branch_set, p):
+    '''
+    For a given set of lots already containing
+    establishments, finds the lots where it
+    is possible to place the next establisment.
+
+    In this case, lots are referred to by index.
+    Current extablishment lot indices are stored in 
+    branch_set.
+
+    Parameters
+    ----------
+    branch_set: set
+        Contains indices of lots where an establishment
+        has already been hypothetically placed.
+    p: numpy 2D array
+        nXn array, 0 for lots that are too close,
+        1 for lots that aren't, and null on diagonal
+
+    Returns
+    -------
+    branch_set: set
+        Same as input branch set, but with new children added
+    possible_children: numpy 1D array
+        Contains 1 for possible next lots, 0 for ones that
+        are too close to existing lots, and null for lots
+        already "visited"
+    '''
     possible_children = np.repeat(1, p.shape[0])
     for i in branch_set:
         possible_children = np.multiply(possible_children, p[i])
@@ -11,6 +38,29 @@ def find_next(branch_set, p):
     return branch_set, possible_children
 
 def make_tree(seed, p):
+    '''
+    Starts by placing an establishment
+    on the seed lot, then iteratively calls
+    find_next to add establishments. Continues
+    this process until there are no more possible
+    establishments to add.
+
+    Parameters
+    ----------
+    seed: int
+        Index of the first lot to assign to an establishment
+    p: numpy 2D array
+        nXn array, 0 for lots that are too close,
+        1 for lots that aren't, and null on diagonal
+
+    Returns
+    -------
+    branch_set: set
+        Contains the indices of all of the lots that can simultaneously
+        have establishments, given the seed lot
+    max_branch: int
+        Number of lots that can have establishments given this seed
+    '''
     possible_children = np.repeat(1, p.shape[0])
     branch_set = {seed}
     while np.nansum(possible_children) > 0:
@@ -19,6 +69,28 @@ def make_tree(seed, p):
     return branch_set, max_branch
 
 def all_trees(bbl_set, p):
+    '''
+    Given a set of lot indices and the associated possibility
+    matrix, finds all possible arrangements.
+
+    Parameters
+    ----------
+    bbl_set: set
+        Set of all input BBLs -- indexes
+    p: numpy 2D array
+        nXn array, 0 for lots that are too close,
+        1 for lots that aren't, and null on diagonal
+
+    Returns
+    -------
+    results: list of dicts
+        Each record is a possible arrangement of establishments
+        The dictionaries have the following:
+             'lots_idx', contining the indices of lots assigned to 
+                            establishments, 
+             'number', containing the integer count of lots with
+                            establishments for this arrangement
+    '''
     results = []
     while len(bbl_set) > 0:
         seed = bbl_set.pop()
