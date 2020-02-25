@@ -33,29 +33,40 @@ p = p_df.to_numpy()
 np.fill_diagonal(p, np.nan)
 print("Top left corner of possibility matrix: \n", p[0:12,0:12])
 
-# Check that there are only NAN on the diagonal
+# Checks for intersection data
 check = np.full(p.shape, False, dtype=bool)
 np.fill_diagonal(check, True)
 print("Check for complete intersection data: ", np.array_equal(np.isnan(p), check))
+rtol=1e-05 
+atol=1e-08
+print("Check that intersection data is symetrical: ", np.allclose(p, p.T, rtol=rtol, atol=atol))
 
 # Find trees
 print("Finding trees...")
 results = all_trees(bbl_index_set, p)
 print("Complete. Number of trees created: ", len(results))
 
-
-# Find best- and worst-case scenarios
+### Find best- and worst-case scenarios ###
 best = max(item['number'] for item in results)
 print("Max number of units is %d" % best)
-best_subset = list(filter(lambda d: d['number'] == best, results))
-best_lots = np.array([list(d['lots_idx']) for d in best_subset])
-best_lots = np.vectorize(bbl_lookup.__getitem__)(best_lots).astype(int)
-np.savetxt('output/best.csv', best_lots, delimiter=",", fmt='%d')
 
+# Find the subset of arrangements for best-case
+best_subset = list(filter(lambda d: d['number'] == best, results))
+best_lots = [list(d['lots_idx']) for d in best_subset]
+
+# Remove permutations
+best_no_perms = set(map(lambda x: tuple(sorted(x)),best_lots))
+best_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(best_no_perms))).astype(int)
+np.savetxt('output/best.csv', best_lots, delimiter=",", fmt='%d')
 
 worst = min(item['number'] for item in results)
 print("Min number of units is %d" % worst)
+
+# Find the subset of arrangements for worst-case
 worst_subset = list(filter(lambda d: d['number'] == worst, results))
-worst_lots = np.array([list(d['lots_idx']) for d in worst_subset])
-worst_lots = np.vectorize(bbl_lookup.__getitem__)(worst_lots).astype(int)
+worst_lots = [list(d['lots_idx']) for d in worst_subset]
+
+# Remove permutations
+worst_no_perms = set(map(lambda x: tuple(sorted(x)),worst_lots))
+worst_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(worst_no_perms))).astype(int)
 np.savetxt('output/worst.csv', worst_lots, delimiter=",", fmt='%d')
