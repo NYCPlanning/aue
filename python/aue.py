@@ -34,34 +34,28 @@ np.fill_diagonal(p, np.nan)
 print("Top left corner of possibility matrix: \n", p[0:12,0:12])
 
 # Check that there are only NAN on the diagonal
-check = numpy.full(p.shape, False, dtype=bool)
+check = np.full(p.shape, False, dtype=bool)
 np.fill_diagonal(check, True)
-print("Is there missing intersection data? ", np.array_equal(np.isnan(p), check))
+print("Check for complete intersection data: ", np.array_equal(np.isnan(p), check))
 
 # Find trees
 print("Finding trees...")
 results = all_trees(bbl_index_set, p)
-print("Complete.")
+print("Complete. Number of trees created: ", len(results))
 
-# Convert indecies back to BBLs
-def bbl_from_idx(result_dict):
-    result_dict['bbls'] = [bbl_lookup[idx] for idx in list(result_dict['lots_idx'])]
-
-map(bbl_from_idx, results)
 
 # Find best- and worst-case scenarios
 best = max(item['number'] for item in results)
 print("Max number of units is %d" % best)
 best_subset = list(filter(lambda d: d['number'] == best, results))
-best_bbls = [d['bbls'] for d in best_subset]
-with open('output/best.csv', 'w', newline="") as f:
-    writer = csv.writer(f)
-    writer.writerows(best_bbls)
+best_lots = np.array([list(d['lots_idx']) for d in best_subset])
+best_lots = np.vectorize(bbl_lookup.__getitem__)(best_lots).astype(int)
+np.savetxt('output/best.csv', best_lots, delimiter=",", fmt='%d')
+
 
 worst = min(item['number'] for item in results)
 print("Min number of units is %d" % worst)
 worst_subset = list(filter(lambda d: d['number'] == worst, results))
-worst_bbls = [d['bbls'] for d in worst_subset]
-with open('output/worst.csv', 'w', newline="") as f:
-    writer = csv.writer(f)
-    writer.writerows(worst_bbls)
+worst_lots = np.array([list(d['lots_idx']) for d in worst_subset])
+worst_lots = np.vectorize(bbl_lookup.__getitem__)(worst_lots).astype(int)
+np.savetxt('output/worst.csv', worst_lots, delimiter=",", fmt='%d')
