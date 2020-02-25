@@ -23,7 +23,7 @@ def all_trees(bbl_set, p):
     while len(bbl_set) > 0:
         seed = bbl_set.pop()
         branch_set, max_branch = make_tree(seed, p)
-        results.append({'lots':branch_set, 'number':max_branch})
+        results.append({'lots_idx':branch_set, 'number':max_branch})
         bbl_set = bbl_set - branch_set
     return results
 
