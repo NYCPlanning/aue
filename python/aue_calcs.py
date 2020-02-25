@@ -3,9 +3,9 @@ import numpy as np
 def find_next(branch_set, p):
     possible_children = np.repeat(1, p.shape[0])
     for i in branch_set:
-        possible_children = np.multiply(possible_children, p[i-1])
+        possible_children = np.multiply(possible_children, p[i])
     try:
-        branch_set.add(possible_children.tolist().index(1)+1)
+        branch_set.add(possible_children.tolist().index(1))
     except:
         pass
     return branch_set, possible_children
