@@ -8,11 +8,9 @@ if not os.path.exists('output'):
     os.makedirs('output')
 
 # Read pair-wise intersection data
-path = "data/intersection.csv"
-intersections = pd.read_csv(path).sort_values(by=['t1', 't2'])
-converse = intersections.rename(columns={'t1':'t2','t2':'t1'})
-intersections_all = intersections.append(converse)
-print("Loaded intersection data and appended with converse")
+path = "https://edm-recipes.nyc3.digitaloceanspaces.com/random/intersection_complete.csv"
+intersections_all = pd.read_csv(path).sort_values(by=['t1', 't2'])
+print("Loaded intersection data")
 
 # Pivot intersection table to create matrix
 print("Pivoting to create possibility matrix...")
@@ -41,10 +39,10 @@ rtol=1e-05
 atol=1e-08
 print("Check that intersection data is symetrical: ", np.allclose(p, p.T, rtol=rtol, atol=atol))
 
-# Find trees
-print("Finding trees...")
+# Find graphs
+print("Finding graphs...")
 results = all_trees(bbl_index_set, p)
-print("Complete. Number of trees created: ", len(results))
+print("Complete. Number of graphs created: ", len(results))
 
 ### Find best- and worst-case scenarios ###
 best = max(item['number'] for item in results)
