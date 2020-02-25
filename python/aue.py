@@ -26,7 +26,6 @@ for idx, bbl in enumerate(bbl_list):
 
 bbl_set = set(bbl_list)
 bbl_index_set = set(bbl_lookup.keys())
-print("Minimum index: ", min(bbl_index_set))
 print("Number of unique input BBLs: ", len(bbl_set))
 
 # Convert to numpy array and set diagonals to nan
@@ -34,13 +33,21 @@ p = p_df.to_numpy()
 np.fill_diagonal(p, np.nan)
 print("Top left corner of possibility matrix: \n", p[0:12,0:12])
 
+# Check that there are only NAN on the diagonal
+check = numpy.full(p.shape, False, dtype=bool)
+np.fill_diagonal(check, True)
+print("Is there missing intersection data? ", np.array_equal(np.isnan(p), check))
+
 # Find trees
 print("Finding trees...")
 results = all_trees(bbl_index_set, p)
 print("Complete.")
 
 # Convert indecies back to BBLs
-map([bbl_lookup[idx] for idx in list(result['lots_idx'])], results)
+def bbl_from_idx(result_dict):
+    result_dict['bbls'] = [bbl_lookup[idx] for idx in list(result_dict['lots_idx'])]
+
+map(bbl_from_idx, results)
 
 # Find best- and worst-case scenarios
 best = max(item['number'] for item in results)
