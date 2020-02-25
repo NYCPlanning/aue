@@ -28,10 +28,13 @@ def find_next(branch_set, p):
         are too close to existing lots, and null for lots
         already "visited"
     '''
+    # Initialize all next steps as possible
     possible_children = np.repeat(1, p.shape[0])
     for i in branch_set:
+        # Find next possible based on proximity to all previous
         possible_children = np.multiply(possible_children, p[i])
     try:
+        # Add the first possible next step to the list
         branch_set.add(possible_children.tolist().index(1))
     except:
         pass
@@ -61,10 +64,13 @@ def make_tree(seed, p):
     max_branch: int
         Number of lots that can have establishments given this seed
     '''
+    # Initialize all next steps as possible
     possible_children = np.repeat(1, p.shape[0])
     branch_set = {seed}
+    # Find possible next lot until there are no more possible
     while np.nansum(possible_children) > 0:
         branch_set, possible_children = find_next(branch_set, p)
+    # Calculate number of lots assigned
     max_branch = len(branch_set)
     return branch_set, max_branch
 
@@ -92,6 +98,7 @@ def all_trees(bbl_set, p):
                             establishments for this arrangement
     '''
     results = []
+    # Run algorithm on new seeds until all have been used
     while len(bbl_set) > 0:
         seed = bbl_set.pop()
         branch_set, max_branch = make_tree(seed, p)
@@ -101,7 +108,7 @@ def all_trees(bbl_set, p):
 
 if __name__ == '__main__':
     print("===== Example calculation =====\n")
-    p = np.array([[np.nan,0,1,1],[0,np.nan,0,1],[1,0,np.nan,1],[1,0,1,np.nan]])
+    p = np.array([[np.nan,0,1,1],[0,np.nan,0,1],[1,0,np.nan,1],[1,1,1,np.nan]])
     bbl_set = {1,2,3,4}
     print("Example buffer matrix:\n", p)
     print("Example set of BBL indices:\n", bbl_set)
