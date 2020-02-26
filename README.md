@@ -36,7 +36,7 @@ then pivot the pair-wise intersection data using python. Below is a simple examp
 
 ![example](https://github.com/NYCPlanning/aue/blob/master/example.png "Simple example")
 
-| |**0**|**1**|**2**|**3**|
+|**Lot Index**|**0**|**1**|**2**|**3**|
 |---|---|---|---|---|
 |**0**| - | 0 | 1 | 1 |
 |**1**| 0 | - | 0 | 1 |
