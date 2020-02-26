@@ -53,25 +53,25 @@ For simplicity, we will assign this to the first indexed lot, lot 0.
 We can now refer to the possibility matrix to determine where we can place the next establishment. Specifically,
 we can extract the 0th row of the matrix:
 
-| |**0**|**1**|**2**|**3**|
-|---|---|---|---|---|
-|**0**| - | 0 | 1 | 1 |
+|**0**|**1**|**2**|**3**|
+|---|---|---|---|
+| - | 0 | 1 | 1 |
 
 Zeros are lots that are unavailable for the next assignment because of proximity to an already-assigned lot. The null values are lots that we've already assigned. The next establishment must be placed on a lot with a 1. Let's assign the next establishment to the first available lot,
 lot 2. Now, our list of lots with establishments is {0, 2}. In order to find the possibilities for the next establishment,
 we have to take into account the proximity information for *both* existing establishments. We can do this by multiplying the elements
 of the 0th row and the 2nd row as follows:
 
-| |**0**|**1**|**2**|**3**|
-|---|---|---|---|---|
-|**0**| - * 1 = - | 0 * 0 = 0 | 1 * - = - | 1 * 1 = 1|
+|**0**|**1**|**2**|**3**|
+|---|---|---|---|
+| - * 1 = - | 0 * 0 = 0 | 1 * - = - | 1 * 1 = 1|
 
 The only possibility for our next establishment is on lot 3. Our lot list is now {0, 2, 3}. There are no more establishments we can add to this solution.
 If we were to find the possibilities for the next lot, we would get the following:
 
-| |**0**|**1**|**2**|**3**|
-|---|---|---|---|---|
-|**0**| - * 1 * 1 = - | 0 * 0 * 1 = 0 | 1 * - * 1 = - | 1 * 1 * - = - |
+|**0**|**1**|**2**|**3**|
+|---|---|---|---|
+| - * 1 * 1 = - | 0 * 0 * 1 = 0 | 1 * - * 1 = - | 1 * 1 * - = - |
 
 There are no ones, so we are done.
 
@@ -87,16 +87,16 @@ If we instead seed an establishment at lot 1, the initial list of establishment 
 
 Our possible next steps are:
 
-| |**0**|**1**|**2**|**3**|
-|---|---|---|---|---|
-|**0**| 0 | - | 0 | 1 |
+|**0**|**1**|**2**|**3**|
+|---|---|---|---|
+| 0 | - | 0 | 1 |
 
 We assign the next establishment to lot 3. Our list of establishments is {1, 3}. We intuitively know we're done.
 Our next possible steps would be:
 
-| |**0**|**1**|**2**|**3**|
-|---|---|---|---|---|
-|**0**| 0 * 1 = 0 | - * 1 = - | 0 * 1 = 0 | 1 * - = - |
+|**0**|**1**|**2**|**3**|
+|---|---|---|---|
+| 0 * 1 = 0 | - * 1 = - | 0 * 1 = 0 | 1 * - = - |
 
 This solution looks like:
 
