@@ -1,28 +1,28 @@
 # Adult Use Establishments Proximity Analysis
 
-This repo contains code for identifying the best- and worst-case scenarios for the spatial distribution of Adult Use Establishments in NYC, given the restriction that no establishment be within 500ft of another establishment.
+This repo contains code for identifying the best- and worst-case scenarios for the spatial distribution of Adult Use Establishments (AUEs) in NYC on a subset of PLUTO lots where Adult Use Establishments are allowed. Whether or not an establishment is "allowed" depends on several proximity restrictions. There are restrictions on the minimum allowable distance between an AUE and other types of establishments (schools, houses of worship, etc.), as well as the distance between multiple AUEs. This analysis deals with the second type of restriction. Specifically, a single AUE cannot exist within 500ft of another AUE. Given this restriction, some arrangements of establishmets will allow for more total establishments than others. Placing an establishment on a lot that is within 500ft of numerous other potential establishment lots eliminates those neighboring lots as possibilities for the "next" establishment siting.
 
-## Background
+# Background
 
 ## Usage
 
-Run `./aue.sh` from the home directory. Results are found in the `output` directory. Each row contains the BBLs for a single solution. The number of columns is the total number of possible establishments. These counts are also output to the terminal.
+Run `./aue.sh` from the home directory. Results are found in the `output` directory. Each row of the output file contains the BBLs for a single solution. The number of columns is the total number of possible establishments. These counts are also output to the terminal.
 
 ## Overview of Results
 
-Using the methodology outlined below, we have identified a best-case scenario of **208** lots that could feasibly have Adult Use Establishments, given the distance restrictions. The worst-case scenario, meaning the case where establishments are arranged in a way that limits the addition of new establishments, is **203** lots. Note that these numbers are the maximum *possible* establishments. In reality, not all lots are currently vaccant.
+Using the methodology outlined below, we have identified a best-case scenario of **208** lots that could feasibly have Adult Use Establishments, given the distance restrictions. The worst-case scenario, meaning the case where establishments are arranged in a way that limits the addition of new establishments, is **203** lots. Note that these numbers are the maximum number of *possible* establishments. In reality, not all lots are currently vaccant or suitable for an Adult Use Establishment.
 
-These numbers are dependent on the input data, however, and there is ongoing work vetting the input lots as realistic locations for an establishment (i.e. there is sufficient street-frontage and access). In the future, this workflow can be re-run with refined input data to improve the estimate of best- and worst-case scenarios, simply by modifying the path for the input buffered lots.
+The vetting process for determining whether a lot is suitable for an AUE (i.e. there is sufficient street-frontage and access), is on-going.
 
-# Methodology
+## Methodology
 
-We approached this problem by creating a matrix of possible co-existing establishments. Simplifying the distance calculations to a binary flag makes our calculations much easier. 
+We approached this problem by creating a matrix of possible co-existing establishments -- lots that can simultaneaously have establishments because they are further than 500ft apart. Simplifying the distance calculations to a binary flag makes our calculations much easier. 
 
 ### Data loading and preparation
 
 **Input data**:
 
-The input data for this analysis is a shapefile of lots, buffered to 500ft. See the image below for an example of what this kind of data looks like.
+The input data for this analysis is the subset of MapPLUTO lots that meet the criteria, buffered to 500ft. See the image below for an example of what this data looks like.
 
 ![input-data](https://github.com/NYCPlanning/aue/blob/master/input-data.png "Buffered Lots")
 
