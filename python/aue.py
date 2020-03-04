@@ -9,14 +9,14 @@ if not os.path.exists('output'):
 
 # Read pair-wise intersection data
 path = "data/intersection.csv"
-intersections = pd.read_csv(path).sort_values(by=['t1', 't2'])
-converse = intersections.rename(columns={'t1':'t2','t2':'t1'})
-intersections_all = intersections.append(converse)
-print("Loaded intersection data and appended with converse")
+intersections_all = pd.read_csv(path).sort_values(by=['t1', 't2'])
+print("Loaded intersection data")
+print(intersections_all.shape)
 
 # Pivot intersection table to create matrix
 print("Pivoting to create possibility matrix...")
-p_df = intersections_all.pivot(index='t2', columns='t1', values='intersection')
+p_df = intersections_all.pivot(index='t1', columns='t2', values='intersection')
+print(p_df.shape)
 
 # Create BBL-Index lookup, as well as BBL set for tree-creation
 bbl_list = list(p_df.index.values)
@@ -37,14 +37,11 @@ print("Top left corner of possibility matrix: \n", p[0:12,0:12])
 check = np.full(p.shape, False, dtype=bool)
 np.fill_diagonal(check, True)
 print("Check for complete intersection data: ", np.array_equal(np.isnan(p), check))
-rtol=1e-05 
-atol=1e-08
-print("Check that intersection data is symetrical: ", np.allclose(p, p.T, rtol=rtol, atol=atol))
 
-# Find trees
-print("Finding trees...")
+# Find graphs
+print("Finding graphs...")
 results = all_trees(bbl_index_set, p)
-print("Complete. Number of trees created: ", len(results))
+print("Complete. Number of graphs created: ", len(results))
 
 ### Find best- and worst-case scenarios ###
 best = max(item['number'] for item in results)
