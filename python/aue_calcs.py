@@ -5,7 +5,6 @@ def find_next(branch_set, p):
     For a given set of lots already containing
     establishments, finds the lots where it
     is possible to place the next establisment.
-
     In this case, lots are referred to by index.
     Current extablishment lot indices are stored in 
     branch_set.
@@ -86,7 +85,7 @@ def all_trees(bbl_set, p):
     p: numpy 2D array
         nXn array, 0 for lots that are too close,
         1 for lots that aren't, and null on diagonal
-
+        
     Returns
     -------
     results: list of dicts
