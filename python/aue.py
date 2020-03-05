@@ -8,6 +8,7 @@ if not os.path.exists('output'):
     os.makedirs('output')
 
 # Read pair-wise intersection data
+
 path = "data/intersection.csv"
 intersections_all = pd.read_csv(path).sort_values(by=['t1', 't2'])
 print("Loaded intersection data")
