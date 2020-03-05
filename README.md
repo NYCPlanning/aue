@@ -79,7 +79,7 @@ There are no ones, meaning there are no lots left where we can put an establishm
 
 This solution looks like:
 
-![first-solution](https://github.com/NYCPlanning/aue/blob/master/first-solution.png "Best-case solution")
+![first-solution](https://github.com/NYCPlanning/aue/blob/master/readme-images/first-solution.png "Best-case solution")
 
 ### Picking new "seeds" & how solutions relate to eachother
 
