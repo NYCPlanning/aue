@@ -26,7 +26,7 @@ We approached this problem by creating a matrix of possible co-existing establis
 
 The input data for this analysis is the subset of MapPLUTO lots that meet the criteria, buffered to 500ft. See the image below for an example of what this data looks like.
 
-![input-data](https://github.com/NYCPlanning/aue/blob/master/input-data.png "Buffered Lots")
+![input-data](https://github.com/NYCPlanning/aue/blob/master/readme-images/input-data.png "Buffered Lots")
 
 
 **Creating a "possibility matrix"**: 
@@ -36,7 +36,7 @@ Using the buffers in the input data, we can create a square matrix that represen
 Note that this matrix is always square. To create this matrix, we test whether a lot's 500ft buffer intersects with the geometry of another lot,
 then pivot the pair-wise intersection data. Below is a simple example of a lot arrangement and how the resulting possibility matrix would look.
 
-![example](https://github.com/NYCPlanning/aue/blob/master/example.png "Simple example")
+![example](https://github.com/NYCPlanning/aue/blob/master/readme-images/example.png "Simple example")
 
 |**Lot Index**|**0**|**1**|**2**|**3**|
 |---|---|---|---|---|
@@ -102,7 +102,7 @@ Our next possible steps would be:
 
 This solution looks like:
 
-![second-solution](https://github.com/NYCPlanning/aue/blob/master/second-solution.png "Worst-case solution")
+![second-solution](https://github.com/NYCPlanning/aue/blob/master/readme-images/second-solution.png "Worst-case solution")
 
 This process gets repeated using every possible lot as a seed. Remember that the *order* of lots in a given solution 
 doesn't matter. If lot 1 and 2 can both have an establishment, it doesn't matter which of these lots gets an establishment first. 
