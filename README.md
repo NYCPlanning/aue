@@ -1,8 +1,6 @@
-# Adult Use Establishments Proximity Analysis
+# Proximity Analysis
 
-This repo contains code for identifying the best- and worst-case scenarios for the spatial distribution of Adult Use Establishments (AUEs) in NYC on a subset of PLUTO lots where Adult Use Establishments are allowed. Whether or not an establishment is "allowed" depends on several proximity restrictions. There are restrictions on the minimum allowable distance between an AUE and other types of establishments (schools, houses of worship, etc.), as well as the distance between AUEs. This analysis deals with the second type of restriction. Specifically, a single AUE cannot exist within 500ft of another AUE. Given this restriction, some arrangements of establishmets will allow for more total establishments than others. Placing an establishment on a lot that is within 500ft of numerous other potential establishment lots eliminates those neighboring lots as possibilities for the "next" establishment siting.
-
-This methodology is not specific to the AUE siting problem, however. These tools can easily be adopted for any siting situation where there are minimum between-establishment distance requirements.
+This repo contains code for identifying the best- and worst-case scenarios for the spatial distribution of any proximity-restricted establishment type in NYC. The input data for this analysis is a subset of PLUTO lots where establishments could appear in the future. Whether or not an establishment is "allowed" can depend on several proximity restrictions. There are restrictions on the minimum allowable distance between one type of establishment and another (i.e. a city may regulate the commercial uses that can exist close to schools or houses of worship), as well as the distance *between* establishments of a given type. The purpose of these restrictions is to avoid the formation of a "district." This analysis deals with the second type of restriction. As currently configured this repo explores a restriction in which a single shop cannot exist within 500ft of another shop. Given this restriction, some arrangements of establishmets will allow for more total establishments than others. Placing an establishment on a lot that is within 500ft of numerous other potential establishment lots eliminates those neighboring lots as possibilities for the "next" establishment siting.
 
 # Background
 
@@ -12,9 +10,8 @@ Run `./aue.sh` from the home directory. Results are found in the `output` direct
 
 ## Overview of Results
 
-Using the methodology outlined below, we have identified a best-case scenario of **339** lots that could feasibly have Adult Use Establishments, given the distance restrictions. The worst-case scenario, meaning the case where establishments are arranged in a way that limits the addition of new establishments, is **333** lots. Note that these numbers are the maximum number of *possible* establishments. In reality, not all lots are currently vaccant or suitable for an Adult Use Establishment.
+Using the methodology outlined below, we have identified a best-case scenario of **339** lots that could feasibly have proximity-restricted establishments, given a 500ft restriction. The worst-case scenario, meaning the case where establishments are arranged in a way that limits the addition of new establishments, is **333** lots. Note that these numbers are the maximum number of *possible* establishments. In reality, not all lots are currently vaccant or suitable for future shops.
 
-The vetting process for determining whether a lot is suitable for an AUE (i.e. there is sufficient street-frontage and access), is on-going.
 
 ## Methodology
 
