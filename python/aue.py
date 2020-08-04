@@ -54,8 +54,10 @@ best_lots = [list(d['lots_idx']) for d in best_subset]
 
 # Remove permutations
 best_no_perms = set(map(lambda x: tuple(sorted(x)),best_lots))
-best_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(best_no_perms))).astype(int)
-np.savetxt('output/best.csv', best_lots, delimiter=",", fmt='%d')
+best_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(best_no_perms)).transpose()).astype(int)
+header = ','.join("combo_" + str(i+1) for i in range(best_lots.shape[1]))
+print(header)
+np.savetxt('output/best.csv', best_lots, header=header, comments='', delimiter=",", fmt='%d')
 
 worst = min(item['number'] for item in results)
 print("Min number of units is %d" % worst)
@@ -66,5 +68,7 @@ worst_lots = [list(d['lots_idx']) for d in worst_subset]
 
 # Remove permutations
 worst_no_perms = set(map(lambda x: tuple(sorted(x)),worst_lots))
-worst_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(worst_no_perms))).astype(int)
-np.savetxt('output/worst.csv', worst_lots, delimiter=",", fmt='%d')
+worst_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(worst_no_perms)).transpose()).astype(int)
+header = ','.join("combo_" + str(i+1) for i in range(worst_lots.shape[1]))
+print(header)
+np.savetxt('output/worst.csv', worst_lots, header=header, comments='', delimiter=",", fmt='%d')
