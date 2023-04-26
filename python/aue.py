@@ -3,13 +3,19 @@ import numpy as np
 import csv
 import os
 from aue_calcs import all_trees
+from pathlib import Path
 
-if not os.path.exists('output'):
-    os.makedirs('output')
+VERSION = os.environ.get("INPUT_VERSION")
+OUTPUT_FOLDER = f"output/{VERSION}"
+
+path = f"data/intersection_{VERSION}.csv"
+
+# creating output file directory
+# if not os.path.exists('output'):
+#     os.makedirs('output')
+Path(OUTPUT_FOLDER).mkdir(parents=True, exist_ok=True)
 
 # Read pair-wise intersection data
-
-path = "data/intersection.csv"
 intersections_all = pd.read_csv(path).sort_values(by=['t1', 't2'])
 print("Loaded intersection data")
 print(intersections_all.shape)
@@ -17,6 +23,7 @@ print(intersections_all.shape)
 # Pivot intersection table to create matrix
 print("Pivoting to create possibility matrix...")
 p_df = intersections_all.pivot(index='t1', columns='t2', values='intersection')
+p_df.to_csv("p_df_pivot.csv")
 print(p_df.shape)
 
 # Create BBL-Index lookup, as well as BBL set for tree-creation
@@ -57,7 +64,7 @@ best_no_perms = set(map(lambda x: tuple(sorted(x)),best_lots))
 best_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(best_no_perms)).transpose()).astype(int)
 header = ','.join("combo_" + str(i+1) for i in range(best_lots.shape[1]))
 print(header)
-np.savetxt('output/best.csv', best_lots, header=header, comments='', delimiter=",", fmt='%d')
+np.savetxt(f'{OUTPUT_FOLDER}/best.csv', best_lots, header=header, comments='', delimiter=",", fmt='%d')
 
 worst = min(item['number'] for item in results)
 print("Min number of units is %d" % worst)
@@ -71,4 +78,4 @@ worst_no_perms = set(map(lambda x: tuple(sorted(x)),worst_lots))
 worst_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(worst_no_perms)).transpose()).astype(int)
 header = ','.join("combo_" + str(i+1) for i in range(worst_lots.shape[1]))
 print(header)
-np.savetxt('output/worst.csv', worst_lots, header=header, comments='', delimiter=",", fmt='%d')
+np.savetxt(f'{OUTPUT_FOLDER}/worst.csv', worst_lots, header=header, comments='', delimiter=",", fmt='%d')
