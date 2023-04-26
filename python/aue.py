@@ -11,8 +11,6 @@ OUTPUT_FOLDER = f"output/{VERSION}"
 path = f"data/intersection_{VERSION}.csv"
 
 # creating output file directory
-# if not os.path.exists('output'):
-#     os.makedirs('output')
 Path(OUTPUT_FOLDER).mkdir(parents=True, exist_ok=True)
 
 # Read pair-wise intersection data
@@ -23,7 +21,6 @@ print(intersections_all.shape)
 # Pivot intersection table to create matrix
 print("Pivoting to create possibility matrix...")
 p_df = intersections_all.pivot(index='t1', columns='t2', values='intersection')
-p_df.to_csv("p_df_pivot.csv")
 print(p_df.shape)
 
 # Create BBL-Index lookup, as well as BBL set for tree-creation
