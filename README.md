@@ -21,14 +21,14 @@ We approached this problem by creating a matrix of possible co-existing establis
 
 **Input data**:
 
-The input data for this analysis is the subset of MapPLUTO lots that meet the criteria, buffered to 500ft. See the image below for an example of what this data looks like.
+The input data for this analysis is the subset of MapPLUTO lots that meet the exclusion criteria. See the image below for an example of what this data looks like.
 
 ![input-data](https://github.com/NYCPlanning/aue/blob/master/readme-images/input-data.png "Buffered Lots")
 
 
 **Creating a "possibility matrix"**: 
 
-Using the buffers in the input data, we can create a square matrix that represents whether an establishment on one lot can coexist with an establishment on another lot. Remember that in this problem, two given establishments can only coexist if they are at least 500ft away from eachother. If this is the case, the value in the possibility matrix is 1. If the two establishments are within 500ft, the value is 0. The diagonals are null.
+After buffering the input data geometries (500ft), we can create a square matrix that represents whether an establishment on one lot can coexist with an establishment on another lot. Remember that in this problem, two given establishments can only coexist if they are at least 500ft away from eachother. If this is the case, the value in the possibility matrix is 1. If the two establishments are within 500ft, the value is 0. The diagonals are null.
 
 Note that this matrix is always square. To create this matrix, we test whether a lot's 500ft buffer intersects with the geometry of another lot,
 then pivot the pair-wise intersection data. Below is a simple example of a lot arrangement and how the resulting possibility matrix would look.
