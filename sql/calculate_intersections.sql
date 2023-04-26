@@ -10,8 +10,8 @@ CREATE TEMP TABLE tmp AS (
     END
 ) AS intersection
   FROM
-    dcp_proximity_establishments.:INPUT_VERSION AS t1
-    INNER JOIN dcp_proximity_establishments.:INPUT_VERSION AS t2 ON (t1.bbl != t2.bbl)
+    dcp_proximity_establishments.:"INPUT_VERSION" AS t1
+    INNER JOIN dcp_proximity_establishments.:"INPUT_VERSION" AS t2 ON (t1.bbl != t2.bbl)
 );
 
 \COPY tmp TO 'data/intersection_temp.csv' DELIMITER ',' CSV HEADER;
