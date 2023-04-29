@@ -1,5 +1,5 @@
 name: Tests
-run-name: Tests (sha $GITHUB_SHA)
+run-name: Tests (sha ${{ env.GITHUB_SHA }})
 
 on: [pull_request, workflow_dispatch]
 
