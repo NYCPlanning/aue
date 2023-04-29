@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   branch_build_tests:
-    name: Build test run
+    name: Test build
     uses: ./.github/workflows/build.yml
     with:
       input_version: test
