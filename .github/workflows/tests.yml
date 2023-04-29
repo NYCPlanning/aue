@@ -1,5 +1,5 @@
 name: Tests
-run-name: Tests (${{ github.sha }})
+run-name: Tests (${{ github.ref_name }})
 
 on: [pull_request, workflow_dispatch]
 
