@@ -15,7 +15,7 @@ on:
 
 env:
   RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
-  INPUT_VERSION: ${{ insputs.input_version }}
+  INPUT_VERSION: ${{ inputs.input_version }}
 
 jobs:
   build:
