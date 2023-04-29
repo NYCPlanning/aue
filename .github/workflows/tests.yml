@@ -11,5 +11,5 @@ jobs:
     name: Build test run
     uses: ./.github/workflows/build.yml
     with:
-      input: test
+      input_version: test
     secrets: inherit
