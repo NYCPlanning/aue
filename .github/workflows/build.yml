@@ -35,5 +35,5 @@ jobs:
       - name: Archive outputs
         uses: actions/upload-artifact@v3
         with:
-          name: build-outputs
+          name: aue_outputs_${{ env.INPUT_VERSION }}
           path: output/${{ env.INPUT_VERSION }}/*
