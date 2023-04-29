@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    input_version:
+      description: Input dataset version (e.g. "latest")
+      type: string
+      required: true
+  workflow_call:
+    inputs:
+      input_version:
+        type: string
+        required: true
+
+env:
+  RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
+  INPUT_VERSION: ${{ insputs.input_version }}
+
+jobs:
+  build:
+    name: Build Dataset
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup build environment
+        run: |
+          ./bash/setup_build_env.sh
+
+      - name: Run build
+        run: |
+          ./bash/aue.sh
+
+      - name: Archive outputs
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-outputs
+          path: data/$INPUT_VERSION/*
