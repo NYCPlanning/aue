@@ -36,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-outputs
-          path: data/${{ env.INPUT_VERSION }}/*
+          path: output/${{ env.INPUT_VERSION }}/*
