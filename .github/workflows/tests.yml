@@ -1,0 +1,16 @@
+name: Tests
+run-name: Tests (${{ github.event_name }})
+
+on: [pull_request, workflow_dispatch]
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  branch_build_tests:
+    name: Test build
+    uses: ./.github/workflows/build.yml
+    with:
+      input_version: test
+    secrets: inherit
