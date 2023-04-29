@@ -1,4 +1,5 @@
 name: Build
+run-name: Build (version ${{ inputs.dataset }})
 
 on:
   workflow_dispatch:
