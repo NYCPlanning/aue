@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-source $(dirname "$0")/utils.sh
-set_env .env
+# source $(dirname "$0")/utils.sh
+# set_env .env
 
 echo "Buffering lots and calculating intersections for version ${INPUT_VERSION} ..."
 
