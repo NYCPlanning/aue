@@ -1,5 +1,5 @@
 # See here for base image contents: https://github.com/devcontainers/images/tree/main/src/python
-ARG VARIANT="3.11"
+ARG VARIANT="3.10"
 FROM mcr.microsoft.com/devcontainers/python:0-${VARIANT}
 
 RUN export DEBIAN_FRONTEND=noninteractive
