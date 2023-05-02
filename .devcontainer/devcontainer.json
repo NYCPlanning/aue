@@ -28,5 +28,8 @@
 	],
 	// Use 'initializeCommand' to run commands on the host machine before the container is created.
 	"initializeCommand": "./bash/setup_devcontainer.sh",
+    "runArgs": [
+        "--env-file", "${localWorkspaceFolder}/.env"
+    ], 
 	"remoteUser": "vscode"
 }
