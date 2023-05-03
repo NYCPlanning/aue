@@ -1,0 +1,33 @@
+config:
+  fail-fast: true
+
+aue_dbt:
+  target: dev_with_fal
+  outputs:
+    dev_with_fal:
+      type: fal
+      db_profile: dev # This points to your main adapter
+    dev:
+      type: postgres
+      host: "{{ env_var('DBT_ENV_SECRET_POSTGRES_HOST') }}"
+      port: "{{ env_var('DBT_POSTGRES_PORT') | as_number }}"
+      user: "{{ env_var('DBT_ENV_SECRET_POSTGRES_USER') }}"
+      password: "{{ env_var('DBT_ENV_SECRET_POSTGRES_PASSWORD') }}"
+      dbname: recipe
+      schema: dbt_aue_dev_{{ env_var('DBT_USER') }}
+    ci:
+      type: postgres
+      host: "{{ env_var('DBT_ENV_SECRET_POSTGRES_HOST') }}"
+      port: "{{ env_var('DBT_POSTGRES_PORT') | as_number }}"
+      user: "{{ env_var('DBT_ENV_SECRET_POSTGRES_USER') }}"
+      password: "{{ env_var('DBT_ENV_SECRET_POSTGRES_PASSWORD') }}"
+      dbname: recipe
+      schema: dbt_aue_ci_{{ env_var('GITHUB_HEAD_REF') }}
+    prod:
+      type: postgres
+      host: "{{ env_var('DBT_ENV_SECRET_POSTGRES_HOST') }}"
+      port: "{{ env_var('DBT_POSTGRES_PORT') | as_number }}"
+      user: "{{ env_var('DBT_ENV_SECRET_POSTGRES_USER') }}"
+      password: "{{ env_var('DBT_ENV_SECRET_POSTGRES_PASSWORD') }}"
+      dbname: recipe
+      schema: dbt_aue_prod
