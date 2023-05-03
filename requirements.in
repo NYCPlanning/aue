@@ -1,4 +1,4 @@
-dbt-postgres==1.5.0
 dbt-fal==1.5.0
+dbt-postgres==1.5.0
 python-dotenv==1.0.0
 sqlfluff==2.0.7
