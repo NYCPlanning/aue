@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: aue_graphs
+    description: "AUE Tax lot arrangement graphs (each record is a possible arrangement of lots)"
+    columns:
+      - name: lots_idx
+        description: "The indices of the lots in an arrangement"
+        tests:
+          - not_null
+      - name: number
+        description: "The count of lots in an arrangement"
+        tests:
+          - not_null
+  - name: tax_lot_best_times
+    description: "The best time of day to be at each tax lot"
+    columns:
+      - name: bbl
+        tests:
+          - relationships:
+              to: ref('tax_lot_geometries')
+              field: bbl
+  # - name: best
+  #   description: "The best"
+  # - name: worst
+  #   description: "The worst"

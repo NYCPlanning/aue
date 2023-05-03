@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: buffered_lot_intersections
+    description: "Intersections of buffered tax lots"
+    columns:
+      - name: t1
+          - not_null
+      - name: t2
+          - not_null
+      - name: intersection
+          - not_null
