@@ -3,10 +3,11 @@ run-name: Build (version ${{ inputs.input_version }})
 
 on:
   workflow_dispatch:
-    input_version:
-      description: Input dataset version (e.g. "latest")
-      type: string
-      required: true
+    inputs:
+      input_version:
+        description: Input dataset version (e.g. "latest")
+        type: string
+        required: true
   workflow_call:
     inputs:
       input_version:
