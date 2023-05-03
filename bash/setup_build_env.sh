@@ -9,6 +9,7 @@ sudo apt-get --assume-yes install --no-install-recommends postgresql-client
 
 # install python packages
 python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip-tools wheel
 python3 -m pip install --requirement requirements.txt
 
 echo "Done!"

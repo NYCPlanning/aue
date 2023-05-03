@@ -1,6 +1,15 @@
-.DS_Store
+# sensitive files
 data
 .env
+
+# temporary files
+.DS_Store
 */.ipynb_checkpoints/*
 */__pycache__/*
 .ipynb_checkpoints
+
+# dbt files
+target/
+dbt_packages/
+logs/
+.dbt/.user.yml

@@ -1,5 +1,4 @@
-numpy==1.24.3
-pandas==2.0.1
-psycopg2-binary==2.9.6
+dbt-fal==1.5.0
+dbt-postgres==1.5.0
 python-dotenv==1.0.0
-sqlalchemy==2.0.11
+sqlfluff==2.0.7

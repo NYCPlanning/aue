@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# Set enviroment variables definied in files
+# Set enviroment variables definied in one or more files
 function set_env {
   for envfile in $@
   do
     if [ -f $envfile ]
       then
-        export $(cat $envfile | sed 's/#.*//g' | xargs)
+        set -a            
+        source $envfile
+        set +a
       fi
   done
 }

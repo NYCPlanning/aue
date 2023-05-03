@@ -1,8 +1,12 @@
 #!/bin/bash
 set -e
-source $(dirname "$0")/utils.sh
 
-set_env .env
+# only do this when running locally (rather than in a github action)
+if [[ ${CI} != "true" ]]; then
+    # load/reload environment variables from .env file
+    source $(dirname "$0")/utils.sh
+    set_env .devcontainer/.env
+fi
 
 echo "Buffering lots and calculating intersections for version ${INPUT_VERSION} ..."
 

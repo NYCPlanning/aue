@@ -3,10 +3,11 @@ run-name: Build (version ${{ inputs.input_version }})
 
 on:
   workflow_dispatch:
-    input_version:
-      description: Input dataset version (e.g. "latest")
-      type: string
-      required: true
+    inputs:
+      input_version:
+        description: Input dataset version (e.g. "latest")
+        type: string
+        required: true
   workflow_call:
     inputs:
       input_version:
@@ -22,7 +23,13 @@ jobs:
     name: Build dataset
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup python
+        uses: actions/setup-python@v4.5.0
+        with:
+          python-version: "3.10"
 
       - name: Setup build environment
         run: |
