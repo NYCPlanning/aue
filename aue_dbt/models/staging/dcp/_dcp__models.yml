@@ -1,15 +1,8 @@
 version: 2
 
-sources:
-  - name: source_data
-    schema: dcp_proximity_establishments
-    tables:
-      - name: test
-      - name: latest
-
 models:
-  - name: tax_lot_geometries
-    description: "Tax lot geometries to be used in AUE analysis"
+  - name: stg_dcp__restricted_lots
+    description: "PLUTO tax lot geometries to be used in AUE analysis"
     columns:
       - name: bbl
         description: "The BBL of the tax lot"
@@ -25,7 +18,7 @@ models:
         tests:
           - not_null
 
-  - name: borough_best_times
+  - name: stg_dcp__borough_times
     description: "The best time of day to be in each NYC borough"
     tags: ["python"]
     columns:

@@ -17,8 +17,8 @@ with lot_pair_intersections as (
             end
         ) as intersection
     from
-        {{ ref('tax_lot_geometries') }} as t1
-    inner join {{ ref('tax_lot_geometries') }} as t2 on (t1.bbl != t2.bbl)
+        {{ ref('stg_dcp__restricted_lots') }} as t1
+    inner join {{ ref('stg_dcp__restricted_lots') }} as t2 on (t1.bbl != t2.bbl)
 )
 
 select *

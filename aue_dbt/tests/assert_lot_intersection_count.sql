@@ -5,15 +5,14 @@
 
 with tax_lots_count as (
     select
-        count(*) as lots_count,
-        (lots_count * lots_count)
-        - lots_count as calc_count_intersections
-    from {{ ref('tax_lot_geometries' ) }}
+        (count(*) * count(*))
+        - count(*) as expected_intersections_count
+    from {{ ref('stg_dcp__restricted_lots' ) }}
 ),
 
 
 intersections_count as (
-    select count(*) as record_count_intersections
+    select count(*) as intersections_count
     from {{ ref('buffered_lot_intersections' ) }}
 )
 
@@ -23,8 +22,8 @@ select
 from tax_lots_count
 full outer join intersections_count
     on
-        tax_lots_count.calc_count_intersections
-        = intersections_count.record_count_intersections
+        tax_lots_count.expected_intersections_count
+        = intersections_count.intersections_count
 where
-    tax_lots_count.calc_count_intersections is null
-    or intersections_count.record_count_intersections is null
+    tax_lots_count.expected_intersections_count is null
+    or intersections_count.intersections_count is null

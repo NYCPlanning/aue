@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: source_data
+    schema: dcp_proximity_establishments
+    tables:
+      - name: test
+      - name: latest
