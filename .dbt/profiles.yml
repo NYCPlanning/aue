@@ -6,7 +6,7 @@ aue_dbt:
   outputs:
     dev_with_fal:
       type: fal
-      db_profile: dev # This points to your main adapter
+      db_profile: dev # This points to the main adapter
     dev:
       type: postgres
       host: "{{ env_var('DBT_ENV_SECRET_POSTGRES_HOST') }}"
