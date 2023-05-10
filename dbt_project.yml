@@ -38,8 +38,16 @@ models:
   aue_dbt:
     staging:
       +materialized: view
+      +docs:
+        node_color: "#32cd73"
     intermediate:
       +materialized: view
+      +docs:
+        node_color: "#becd32"
+    final:
+      +materialized: table
+      +docs:
+        node_color: "#cd7f32"
     # final:
     #   +materialized: view
 
