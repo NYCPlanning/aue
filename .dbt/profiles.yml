@@ -15,6 +15,9 @@ aue_dbt:
       password: "{{ env_var('DBT_ENV_SECRET_POSTGRES_PASSWORD') }}"
       dbname: recipe
       schema: dbt_aue_dev_{{ env_var('DBT_USER') }}
+    ci_with_fal:
+      type: fal
+      db_profile: ci # This points to the main adapter
     ci:
       type: postgres
       host: "{{ env_var('DBT_ENV_SECRET_POSTGRES_HOST') }}"
@@ -23,6 +26,9 @@ aue_dbt:
       password: "{{ env_var('DBT_ENV_SECRET_POSTGRES_PASSWORD') }}"
       dbname: recipe
       schema: dbt_aue_ci_{{ env_var('GITHUB_HEAD_REF') }}
+    prod_with_fal:
+      type: fal
+      db_profile: prod # This points to the main adapter
     prod:
       type: postgres
       host: "{{ env_var('DBT_ENV_SECRET_POSTGRES_HOST') }}"
