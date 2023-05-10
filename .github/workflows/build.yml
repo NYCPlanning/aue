@@ -28,6 +28,7 @@ on:
 env:
   RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
   INPUT_VERSION: ${{ inputs.input_version }}
+  DBT_PROFILES_DIR: .dbt/
   DBT_TARGET: ${{ inputs.dbt_target }}
 
 jobs:
