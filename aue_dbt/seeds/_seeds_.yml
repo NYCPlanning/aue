@@ -1,0 +1,14 @@
+version: 2
+
+seeds:
+  - name: borough_codes
+    description: "Each NYC borough and their numeric code assigned in alphabetic order"
+    columns:
+      - name: borough_code
+        tests:
+          - unique
+          - not_null
+      - name: borough_name
+        tests:
+          - unique
+          - not_null

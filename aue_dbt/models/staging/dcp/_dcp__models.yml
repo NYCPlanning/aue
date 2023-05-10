@@ -10,9 +10,12 @@ models:
           - not_null
           - unique
       - name: borocode
-        description: "The borough code (alphateical order)"
+        description: "The code for the borough"
         tests:
           - not_null
+          - relationships:
+              to: ref('borough_codes')
+              field: borough_code
       - name: wkb_geometry
         description: "The geometry of the tax lot"
         tests:
