@@ -17,22 +17,3 @@ models:
         description: "The geometry of the tax lot"
         tests:
           - not_null
-
-  - name: stg_dcp__borough_times
-    description: "The best time of day to be in each NYC borough"
-    tags: ["python"]
-    columns:
-      - name: borough_name
-        description: "The name of the borough"
-        tests:
-          - not_null
-          - unique
-      - name: borough_code
-        description: "The borough code (alphateical order)"
-        tests:
-          - not_null
-          - unique
-      - name: best_time
-        description: "The time of day"
-        tests:
-          - not_null

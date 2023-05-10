@@ -3,6 +3,7 @@ version: 2
 models:
   - name: aue_graphs
     description: "AUE Tax lot arrangement graphs (each record is a possible arrangement of lots)"
+    tags: ["python"]
     columns:
       - name: lots_idx
         description: "The indices of the lots in an arrangement"

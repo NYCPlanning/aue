@@ -3,7 +3,7 @@ with tax_lot_geometries as (
 ),
 
 borough_best_times as (
-    select * from {{ ref('stg_dcp__borough_times') }}
+    select * from {{ ref('borough_best_times') }}
 ),
 
 tax_lot_best_time as (
