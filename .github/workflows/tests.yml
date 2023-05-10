@@ -1,5 +1,5 @@
 name: Tests
-run-name: Tests (${{ github.event_name }})
+run-name: Tests (${{ github.event_name }} ${{ github.event.pull_request.number }})
 
 on: [pull_request, workflow_dispatch]
 
