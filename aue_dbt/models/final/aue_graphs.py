@@ -10,7 +10,7 @@ OUTPUT_FOLDER_VERSIONED = f"output/{VERSION}"
 def model(dbt, session) -> pd.DataFrame:
     # Read pair-wise intersection data
     # intersections_all = pd.read_csv(path).sort_values(by=['t1', 't2'])
-    intersections_all = dbt.ref("buffered_lot_intersections").sort_values(by=['t1', 't2'])
+    intersections_all = dbt.ref("buffered_lots_intersected").sort_values(by=['t1', 't2'])
 
     print("Loaded intersection data")
     print(intersections_all.shape)

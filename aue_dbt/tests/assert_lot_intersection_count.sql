@@ -13,7 +13,7 @@ with tax_lots_count as (
 
 intersections_count as (
     select count(*) as intersections_count
-    from {{ ref('buffered_lot_intersections' ) }}
+    from {{ ref('buffered_lots_intersected' ) }}
 )
 
 select

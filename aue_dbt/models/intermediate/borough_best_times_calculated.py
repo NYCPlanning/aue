@@ -15,13 +15,5 @@ def model(dbt, session) -> pd.DataFrame:
     borough_best_times["best_time"] = time_now
     borough_best_times["best_time"] = borough_best_times["best_time"].apply(jitter_time)
     borough_best_times['best_time'] = borough_best_times['best_time'].apply(lambda t: t.strftime("%H:%M"))
-    
-
-    # df = pd.DataFrame.from_dict(
-    #     {
-    #         # 'bbl': [3, 2, 1, 0],
-    #         # 'wkb_geometry': ['a', 'b', 'c', 'd'],
-    #     }
-    # )
 
     return borough_best_times

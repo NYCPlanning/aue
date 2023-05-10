@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: buffered_lot_intersections
+  - name: buffered_lots_intersected
     description: "Intersections of buffered tax lots"
     columns:
       - name: t1
@@ -11,7 +11,7 @@ models:
       - name: intersection
           - not_null
 
-  - name: borough_best_times
+  - name: borough_best_times_calculated
     description: "The best time of day to be in each NYC borough"
     tags: ["python"]
     columns:
