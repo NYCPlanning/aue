@@ -13,4 +13,5 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       input_version: test
+      dbt_version: ci_with_fal
     secrets: inherit
