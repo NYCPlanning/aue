@@ -48,8 +48,6 @@ models:
       +materialized: table
       +docs:
         node_color: "#cd7f32"
-    # final:
-    #   +materialized: view
 
 # Configuring tests
 # Full documentation: https://docs.getdbt.com/reference/test-configs
