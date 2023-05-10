@@ -22,13 +22,13 @@ As currently configured, this repo explores a restriction in which a single esta
 
 3. In a terminal, run the following commands:
 ```bash
-dbt debug
+dbt debug --target dev
 dbt seed
 dbt run
 dbt test
 dbt clean
 dbt docs generate
-dbt docs serve
+dbt docs serve --target dev
 ```
 
 #### DEPRECATED BUT NOT DELETING YET
