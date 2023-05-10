@@ -21,12 +21,15 @@ As currently configured, this repo explores a restriction in which a single esta
 2. Open in VS Code via dev container
 
 3. In a terminal, run the following commands:
-```bash
+```
 dbt debug --target dev
 dbt seed
 dbt run
 dbt test
-dbt clean
+```
+
+4. To generate and view dbt docs locally:
+```
 dbt docs generate
 dbt docs serve --target dev
 ```
