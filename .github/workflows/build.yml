@@ -9,7 +9,7 @@ on:
         type: string
         required: true
       dbt_target:
-        description: DBT output profile to use
+        description: DBT profile to use for build
         type: choice
         required: true
         default: ci_with_fal
