@@ -13,7 +13,7 @@ models:
         description: "The count of lots in an arrangement"
         tests:
           - not_null
-  - name: tax_lot_best_times
+  - name: tax_lots_best_times
     description: "The best time of day to be at each tax lot"
     columns:
       - name: bbl
@@ -21,7 +21,9 @@ models:
           - relationships:
               to: ref('stg_dcp__restricted_lots')
               field: bbl
+
   # - name: best
   #   description: "The best"
+
   # - name: worst
   #   description: "The worst"
