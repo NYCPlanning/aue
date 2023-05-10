@@ -8,9 +8,6 @@ VERSION = os.environ.get("INPUT_VERSION")
 OUTPUT_FOLDER_VERSIONED = f"output/{VERSION}"
 
 def model(dbt, session) -> pd.DataFrame:
-    # setting configuration
-    dbt.config(enabled=False)
-
     # Read pair-wise intersection data
     # intersections_all = pd.read_csv(path).sort_values(by=['t1', 't2'])
     intersections_all = dbt.ref("buffered_lots_intersected").sort_values(by=['t1', 't2'])
@@ -69,19 +66,19 @@ def model(dbt, session) -> pd.DataFrame:
     print(header)
     np.savetxt(f'{OUTPUT_FOLDER_VERSIONED}/best_dbt.csv', best_lots, header=header, comments='', delimiter=",", fmt='%d')
 
-    worst = min(item['number'] for item in results)
-    print("Min number of units is %d" % worst)
+    # worst = min(item['number'] for item in results)
+    # print("Min number of units is %d" % worst)
 
-    # Find the subset of arrangements for worst-case
-    worst_subset = list(filter(lambda d: d['number'] == worst, results))
-    worst_lots = [list(d['lots_idx']) for d in worst_subset]
+    # # Find the subset of arrangements for worst-case
+    # worst_subset = list(filter(lambda d: d['number'] == worst, results))
+    # worst_lots = [list(d['lots_idx']) for d in worst_subset]
 
-    # Remove permutations
-    worst_no_perms = set(map(lambda x: tuple(sorted(x)),worst_lots))
-    worst_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(worst_no_perms)).transpose()).astype(int)
-    header = ','.join("combo_" + str(i+1) for i in range(worst_lots.shape[1]))
-    print(header)
-    np.savetxt(f'{OUTPUT_FOLDER_VERSIONED}/worst_dbt.csv', worst_lots, header=header, comments='', delimiter=",", fmt='%d')
+    # # Remove permutations
+    # worst_no_perms = set(map(lambda x: tuple(sorted(x)),worst_lots))
+    # worst_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(worst_no_perms)).transpose()).astype(int)
+    # header = ','.join("combo_" + str(i+1) for i in range(worst_lots.shape[1]))
+    # print(header)
+    # np.savetxt(f'{OUTPUT_FOLDER_VERSIONED}/worst_dbt.csv', worst_lots, header=header, comments='', delimiter=",", fmt='%d')
+    best_lots = pd.DataFrame(best_lots)
 
-
-    return aue_graphs
+    return best_lots

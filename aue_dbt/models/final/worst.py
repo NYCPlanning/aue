@@ -8,9 +8,6 @@ VERSION = os.environ.get("INPUT_VERSION")
 OUTPUT_FOLDER_VERSIONED = f"output/{VERSION}"
 
 def model(dbt, session) -> pd.DataFrame:
-    # setting configuration
-    dbt.config(enabled=False)
-
     # Read pair-wise intersection data
     # intersections_all = pd.read_csv(path).sort_values(by=['t1', 't2'])
     intersections_all = dbt.ref("buffered_lots_intersected").sort_values(by=['t1', 't2'])
@@ -54,20 +51,20 @@ def model(dbt, session) -> pd.DataFrame:
     # creating output file directory
     Path(OUTPUT_FOLDER_VERSIONED).mkdir(parents=True, exist_ok=True)
 
-    ### Find best- and worst-case scenarios ###
-    best = max(item['number'] for item in results)
-    print("Max number of units is %d" % best)
+    # ### Find best- and worst-case scenarios ###
+    # best = max(item['number'] for item in results)
+    # print("Max number of units is %d" % best)
 
-    # Find the subset of arrangements for best-case
-    best_subset = list(filter(lambda d: d['number'] == best, results))
-    best_lots = [list(d['lots_idx']) for d in best_subset]
+    # # Find the subset of arrangements for best-case
+    # best_subset = list(filter(lambda d: d['number'] == best, results))
+    # best_lots = [list(d['lots_idx']) for d in best_subset]
 
-    # Remove permutations
-    best_no_perms = set(map(lambda x: tuple(sorted(x)),best_lots))
-    best_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(best_no_perms)).transpose()).astype(int)
-    header = ','.join("combo_" + str(i+1) for i in range(best_lots.shape[1]))
-    print(header)
-    np.savetxt(f'{OUTPUT_FOLDER_VERSIONED}/best_dbt.csv', best_lots, header=header, comments='', delimiter=",", fmt='%d')
+    # # Remove permutations
+    # best_no_perms = set(map(lambda x: tuple(sorted(x)),best_lots))
+    # best_lots = np.vectorize(bbl_lookup.__getitem__)(np.array(list(best_no_perms)).transpose()).astype(int)
+    # header = ','.join("combo_" + str(i+1) for i in range(best_lots.shape[1]))
+    # print(header)
+    # np.savetxt(f'{OUTPUT_FOLDER_VERSIONED}/best_dbt.csv', best_lots, header=header, comments='', delimiter=",", fmt='%d')
 
     worst = min(item['number'] for item in results)
     print("Min number of units is %d" % worst)
@@ -83,5 +80,6 @@ def model(dbt, session) -> pd.DataFrame:
     print(header)
     np.savetxt(f'{OUTPUT_FOLDER_VERSIONED}/worst_dbt.csv', worst_lots, header=header, comments='', delimiter=",", fmt='%d')
 
+    worst_lots = pd.DataFrame(worst_lots)
 
-    return aue_graphs
+    return worst_lots
