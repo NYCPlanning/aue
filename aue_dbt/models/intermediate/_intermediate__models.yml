@@ -5,10 +5,13 @@ models:
     description: "Intersections of buffered tax lots"
     columns:
       - name: t1
+        tests:
           - not_null
       - name: t2
+        tests:
           - not_null
       - name: intersection
+        tests:
           - not_null
 
   - name: borough_best_times_calculated
