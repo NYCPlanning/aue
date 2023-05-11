@@ -2,37 +2,12 @@ name: Tests
 run-name: Tests (${{ github.event_name }})
 
 on: [pull_request, workflow_dispatch]
-  # pull_request:
-  # workflow_dispatch:
-  #   inputs:
-  #     dbt_schema:
-  #       description: DBT schema suffix to use for test build
-  #       type: string
-  #       required: true
-  #       default: workflow_dispatch
 
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 jobs:
-  # set_dynamic_inputs:
-  #   name: Set dynamic test input variables
-  #   runs-on: ubuntu-22.04
-  #   outputs:
-  #     dbt_schema: ${{ steps.set_dynamic_inputs.outputs.dbt_schema }}
-  #   steps:
-  #     - name: Check outputs
-  #       run: |
-  #         echo "using dbt_schema of ${{ github.event.pull_request.number || 'workflow_dispatch' }}"
-
-  #     - name: Set outputs
-  #       id: set-output-defaults
-  #       run: |    
-  #         # If pull_request, use inputs (left), if other trigger, use default env (right)
-  #         echo "::set-output name=set_dynamic_inputs::${{ github.event.pull_request.number || 'workflow_dispatch' }}"
-
-
   branch_build_tests:
     name: Test build
     uses: ./.github/workflows/build.yml
