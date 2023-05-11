@@ -15,9 +15,9 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
-env:
-  DBT_SCHEMA: ${{ fromJSON('[github.event.pull_request.number, "workflow_dispatch"]')[github.event_name == 'pull_request'] }}
-  DBT_SCHEMA_BASIC: ${{ fromJSON('["danger", "good"]')[true] }}
+# env:
+#   DBT_SCHEMA: ${{ fromJSON('[github.event.pull_request.number, "workflow_dispatch"]')[github.event_name == 'pull_request'] }}
+#   DBT_SCHEMA_BASIC: ${{ fromJSON('["danger", "good"]')[true] }}
   # DBT_SCHEMA: ${{ fromJSON('{"false": "danger", "true": "good"}')[true] }}
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
         run: |    
           # If workflow_dispatch, use inputs (left), if other trigger, use default env (right)
           # echo "::set-output name=set_dynamic_inputs::${{ github.event.inputs.set_dynamic_inputs || 'true' }}"
-          echo "::set-output name=set_dynamic_inputs::${{ env.DBT_SCHEMA }}"
+          echo "::set-output name=set_dynamic_inputs::${{ github.event.pull_request.number || 'workflow_dispatch' }}"
 
 
   branch_build_tests:
