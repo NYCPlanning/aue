@@ -24,7 +24,7 @@ on:
       dbt_target:
         type: string
         required: true
-      dbt_schema:
+      dbt_schema_suffix:
         type: string
         required: true
 
@@ -33,6 +33,7 @@ env:
   INPUT_VERSION: ${{ inputs.input_version }}
   DBT_PROFILES_DIR: .dbt/
   DBT_TARGET: ${{ inputs.dbt_target }}
+  GITHUB_PR_NUMBER: ${{ inputs.dbt_schema_suffix }}
 
 jobs:
   build:
@@ -58,7 +59,7 @@ jobs:
       - name: Run build (dbt)
         run: |
           echo "using dbt target of ${{ env.DBT_TARGET }}"
-          echo "using dbt schema of ${{ inputs.dbt_schema }}"
+          echo "using dbt schema of ${{ inputs.dbt_schema_suffix }}"
           dbt debug --target ${{ env.DBT_TARGET }}
 
       - name: Archive outputs

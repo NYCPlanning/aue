@@ -25,7 +25,7 @@ aue_dbt:
       user: "{{ env_var('DBT_ENV_SECRET_POSTGRES_USER') }}"
       password: "{{ env_var('DBT_ENV_SECRET_POSTGRES_PASSWORD') }}"
       dbname: recipe
-      schema: dbt_aue_ci_{{ env_var('GITHUB_HEAD_REF') }}
+      schema: dbt_aue_ci_{{ env_var('GITHUB_PR_NUMBER') }}
     prod_with_fal:
       type: fal
       db_profile: prod # This points to the main adapter
