@@ -34,6 +34,10 @@ env:
   DBT_PROFILES_DIR: .dbt/
   DBT_TARGET: ${{ inputs.dbt_target }}
   GITHUB_PR_NUMBER: ${{ inputs.dbt_schema_suffix }}
+  DBT_ENV_SECRET_POSTGRES_HOST: ${{ secrets.DBT_ENV_SECRET_POSTGRES_HOST }}
+  DBT_POSTGRES_PORT: ${{ secrets.DBT_POSTGRES_PORT }}
+  DBT_ENV_SECRET_POSTGRES_USER: ${{ secrets.DBT_ENV_SECRET_POSTGRES_USER }}
+  DBT_ENV_SECRET_POSTGRES_PASSWORD: ${{ secrets.DBT_ENV_SECRET_POSTGRES_PASSWORD }}
 
 jobs:
   build:
