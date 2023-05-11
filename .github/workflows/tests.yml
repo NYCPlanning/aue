@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DBT_SCHEMA: fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request']
+  DBT_SCHEMA: ${{ fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request'] }}
 
 jobs:
   set_dynamic_inputs:
