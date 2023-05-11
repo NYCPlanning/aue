@@ -25,19 +25,19 @@ jobs:
     name: Set dynamic test input variables
     runs-on: ubuntu-22.04
     outputs:
-      dbt_schema: ${{ env.DBT_SCHEMA }}
-      # dbt_schema: ${{ steps.set_dynamic_inputs.outputs.dbt_schema }}
+      # dbt_schema: ${{ env.DBT_SCHEMA }}
+      dbt_schema: ${{ steps.set_dynamic_inputs.outputs.dbt_schema }}
     steps:
       - name: Check outputs
         run: |
           echo "using dbt_schema of ${{ env.DBT_SCHEMA }}"
 
-    # steps:
-    #   - name: Set outputs
-    #     id: set-output-defaults
-    #     run: |    
-    #       # If workflow_dispatch, use inputs (left), if other trigger, use default env (right)
-    #       echo "::set-output name=set_dynamic_inputs::${{ github.event.inputs.set_dynamic_inputs || 'true' }}"
+      - name: Set outputs
+        id: set-output-defaults
+        run: |    
+          # If workflow_dispatch, use inputs (left), if other trigger, use default env (right)
+          # echo "::set-output name=set_dynamic_inputs::${{ github.event.inputs.set_dynamic_inputs || 'true' }}"
+          echo "::set-output name=set_dynamic_inputs::${{ env.DBT_SCHEMA }}"
 
 
   branch_build_tests:
