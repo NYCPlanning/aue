@@ -17,7 +17,8 @@ concurrency:
 
 env:
   # DBT_SCHEMA: ${{ fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request'] }}
-  DBT_SCHEMA: ${{ fromJSON('["danger", "good"]')[true] }}
+  # DBT_SCHEMA: ${{ fromJSON('["danger", "good"]')[true] }}
+  DBT_SCHEMA: ${{ fromJSON('{"false": "danger", "true": "good"}')[true] }}
 
 jobs:
   # set_dynamic_inputs:
