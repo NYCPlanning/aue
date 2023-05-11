@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_dcp__restricted_lots
+    description: "PLUTO tax lot geometries to be used in AUE analysis"
+    columns:
+      - name: bbl
+        description: "The BBL of the tax lot"
+        tests:
+          - not_null
+          - unique
+      - name: borocode
+        description: "The code for the borough"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('borough_codes')
+              field: borough_code
+      - name: wkb_geometry
+        description: "The geometry of the tax lot"
+        tests:
+          - not_null

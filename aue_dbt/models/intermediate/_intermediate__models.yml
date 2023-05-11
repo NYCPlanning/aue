@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: buffered_lots_intersected
+    description: "Intersections of buffered tax lots"
+    columns:
+      - name: t1
+        tests:
+          - not_null
+      - name: t2
+        tests:
+          - not_null
+      - name: intersection
+        tests:
+          - not_null
+
+  - name: borough_best_times_calculated
+    description: "The best time of day to be in each NYC borough"
+    tags: ["python"]
+    columns:
+      - name: borough_name
+        description: "The name of the borough"
+        tests:
+          - not_null
+          - unique
+      - name: borough_code
+        description: "The code for the borough"
+        tests:
+          - not_null
+          - unique
+      - name: best_time
+        description: "The time of day"
+        tests:
+          - not_null

@@ -8,15 +8,36 @@ on:
         description: Input dataset version (e.g. "latest")
         type: string
         required: true
+      dbt_target:
+        description: DBT profile to use for build
+        type: choice
+        required: true
+        default: ci
+        options:
+          - ci
+          - prod
   workflow_call:
     inputs:
       input_version:
+        type: string
+        required: true
+      dbt_target:
+        type: string
+        required: true
+      dbt_schema_suffix:
         type: string
         required: true
 
 env:
   RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
   INPUT_VERSION: ${{ inputs.input_version }}
+  DBT_PROFILES_DIR: .dbt/
+  DBT_TARGET: ${{ inputs.dbt_target }}
+  GITHUB_PR_NUMBER: ${{ inputs.dbt_schema_suffix }}
+  DBT_ENV_SECRET_POSTGRES_HOST: ${{ secrets.DBT_ENV_SECRET_POSTGRES_HOST }}
+  DBT_POSTGRES_PORT: ${{ secrets.DBT_POSTGRES_PORT }}
+  DBT_ENV_SECRET_POSTGRES_USER: ${{ secrets.DBT_ENV_SECRET_POSTGRES_USER }}
+  DBT_ENV_SECRET_POSTGRES_PASSWORD: ${{ secrets.DBT_ENV_SECRET_POSTGRES_PASSWORD }}
 
 jobs:
   build:
@@ -35,9 +56,16 @@ jobs:
         run: |
           ./bash/setup_build_env.sh
 
-      - name: Run build
+      # - name: Run build (classic)
+      #   run: |
+      #     ./bash/aue.sh
+
+      - name: Run build (dbt)
         run: |
-          ./bash/aue.sh
+          echo "using dbt target of ${{ env.DBT_TARGET }} / ${{ env.DBT_TARGET }}_with_fal"
+          echo "using dbt schema suffix of ${{ inputs.dbt_schema_suffix }}"
+          dbt debug --target ${{ env.DBT_TARGET }}
+          dbt seed --target ${{ env.DBT_TARGET }}_with_fal
 
       - name: Archive outputs
         uses: actions/upload-artifact@v3

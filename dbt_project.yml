@@ -1,0 +1,56 @@
+name: "aue_dbt"
+version: "1.0.0"
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: "aue_dbt"
+
+vars:
+  input_version: "{{ env_var('INPUT_VERSION') }}"
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["aue_dbt/models"]
+seed-paths: ["aue_dbt/seeds"]
+test-paths: ["aue_dbt/tests"]
+# analysis-paths: ["analyses"]
+# macro-paths: ["macros"]
+# snapshot-paths: ["snapshots"]
+
+# Directories to be removed by `dbt clean`
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configuring seeds
+# Full documentation: https://docs.getdbt.com/reference/seed-configs
+seeds:
+  +quote_columns: false
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the stated
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+models:
+  aue_dbt:
+    staging:
+      +materialized: view
+      +docs:
+        node_color: "#32cd73"
+    intermediate:
+      +materialized: view
+      +docs:
+        node_color: "#becd32"
+    final:
+      +materialized: table
+      +docs:
+        node_color: "#cd7f32"
+
+# Configuring tests
+# Full documentation: https://docs.getdbt.com/reference/test-configs
+tests:
+  +store_failures: true
+  +schema: aue_dbt_test_results

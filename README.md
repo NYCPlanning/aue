@@ -10,6 +10,32 @@ As currently configured, this repo explores a restriction in which a single esta
 
 ### Usage
 
+#### Run via github action
+
+1. ...
+
+#### Run locally
+
+1. Clone repo
+
+2. Open in VS Code via dev container
+
+3. In a terminal, run the following commands:
+```
+dbt debug --target dev
+dbt seed
+dbt run
+dbt test
+```
+
+4. To generate and view dbt docs locally:
+```
+dbt docs generate
+dbt docs serve --target dev
+```
+
+#### DEPRECATED BUT NOT DELETING YET
+
 Run `./aue.sh` from the home directory. Results are found in the `output` directory. Each row of the output file contains the BBLs for a single solution. The number of columns is the total number of possible establishments. These counts are also output to the terminal.
 
 ### Overview of Results
