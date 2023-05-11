@@ -12,10 +12,10 @@ on:
         description: DBT profile to use for build
         type: choice
         required: true
-        default: ci_with_fal
+        default: ci
         options:
-          - ci_with_fal
-          - prod_with_fal
+          - ci
+          - prod
   workflow_call:
     inputs:
       input_version:
@@ -65,6 +65,7 @@ jobs:
           echo "using dbt target of ${{ env.DBT_TARGET }}"
           echo "using dbt schema of ${{ inputs.dbt_schema_suffix }}"
           dbt debug --target ${{ env.DBT_TARGET }}
+          dbt seed --target ${{ env.DBT_TARGET }}_with_fal
 
       - name: Archive outputs
         uses: actions/upload-artifact@v3
