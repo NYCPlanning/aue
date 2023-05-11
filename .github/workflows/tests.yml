@@ -19,11 +19,25 @@ env:
   DBT_SCHEMA: fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request']
 
 jobs:
+  set_dynamic_inputs:
+    name: Set dynamic test input variables
+    runs-on: ubuntu-22.04
+    outputs:
+      dbt_schema: ${{ env.DBT_SCHEMA }}
+      # dbt_schema: ${{ steps.set_dynamic_inputs.outputs.dbt_schema }}
+    # steps:
+    #   - name: Set outputs
+    #     id: set-output-defaults
+    #     run: |    
+    #       # If workflow_dispatch, use inputs (left), if other trigger, use default env (right)
+    #       echo "::set-output name=set_dynamic_inputs::${{ github.event.inputs.set_dynamic_inputs || 'true' }}"
+
+
   branch_build_tests:
     name: Test build
     uses: ./.github/workflows/build.yml
     with:
       input_version: test
       dbt_target: ci_with_fal
-      dbt_schema: ${{ env.DBT_SCHEMA }}
+      dbt_schema: ${{ needs.set_dynamic_inputs.outputs.dbt_schema }}
     secrets: inherit
