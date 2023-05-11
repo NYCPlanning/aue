@@ -24,6 +24,9 @@ on:
       dbt_target:
         type: string
         required: true
+      dbt_schema:
+        type: string
+        required: true
 
 env:
   RECIPE_ENGINE: ${{ secrets.RECIPE_ENGINE }}
@@ -54,6 +57,8 @@ jobs:
 
       - name: Run build (dbt)
         run: |
+          echo "using dbt target of ${{ env.DBT_TARGET }}"
+          echo "using dbt schema of ${{ inputs.dbt_schema }}"
           dbt debug --target ${{ env.DBT_TARGET }}
 
       - name: Archive outputs
