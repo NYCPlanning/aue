@@ -1,5 +1,5 @@
 name: Tests
-run-name: Tests (github.event_name)
+run-name: Tests (${{ github.event_name }})
 
 on: [pull_request, workflow_dispatch]
   # pull_request:
@@ -11,12 +11,12 @@ on: [pull_request, workflow_dispatch]
   #       required: true
   #       default: workflow_dispatch
 
-env:
-  DBT_SCHEMA: fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request']
-
 concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
+
+env:
+  DBT_SCHEMA: fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request']
 
 jobs:
   branch_build_tests:
