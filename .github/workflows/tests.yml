@@ -16,19 +16,21 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DBT_SCHEMA: ${{ fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request'] }}
+  # DBT_SCHEMA: ${{ fromJSON('[github.event.pull_request.number, workflow_dispatch]')[github.event_name == 'pull_request'] }}
+  DBT_SCHEMA: ${{ fromJSON('["danger", "good"]')[true] }}
 
 jobs:
-  set_dynamic_inputs:
-    name: Set dynamic test input variables
-    runs-on: ubuntu-22.04
-    outputs:
-      dbt_schema: ${{ env.DBT_SCHEMA }}
-      # dbt_schema: ${{ steps.set_dynamic_inputs.outputs.dbt_schema }}
-    steps:
-      - name: Check outputs
-        run: |
-          echo "using dbt_schema of ${{ env.DBT_SCHEMA }}"
+  # set_dynamic_inputs:
+  #   name: Set dynamic test input variables
+  #   runs-on: ubuntu-22.04
+  #   outputs:
+  #     dbt_schema: ${{ env.DBT_SCHEMA }}
+  #     # dbt_schema: ${{ steps.set_dynamic_inputs.outputs.dbt_schema }}
+  #   steps:
+  #     - name: Check outputs
+  #       run: |
+  #         echo "using dbt_schema of ${{ env.DBT_SCHEMA }}"
+
     # steps:
     #   - name: Set outputs
     #     id: set-output-defaults
