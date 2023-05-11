@@ -62,8 +62,8 @@ jobs:
 
       - name: Run build (dbt)
         run: |
-          echo "using dbt target of ${{ env.DBT_TARGET }}"
-          echo "using dbt schema of ${{ inputs.dbt_schema_suffix }}"
+          echo "using dbt target of ${{ env.DBT_TARGET }} / ${{ env.DBT_TARGET }}_with_fal"
+          echo "using dbt schema suffix of ${{ inputs.dbt_schema_suffix }}"
           dbt debug --target ${{ env.DBT_TARGET }}
           dbt seed --target ${{ env.DBT_TARGET }}_with_fal
 

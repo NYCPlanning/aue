@@ -38,6 +38,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       input_version: test
-      dbt_target: ci_with_fal
+      dbt_target: ci
       dbt_schema_suffix: ${{ github.event.pull_request.number || 'workflow_dispatch' }}
     secrets: inherit
