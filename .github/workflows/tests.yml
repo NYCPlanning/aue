@@ -40,5 +40,5 @@ jobs:
       input_version: test
       dbt_target: ci_with_fal
       # dbt_schema: ${{ needs.set_dynamic_inputs.outputs.dbt_schema }}
-      dbt_schema: ${{ github.event.pull_request.number || 'workflow_dispatch' }}
+      dbt_schema_suffix: ${{ github.event.pull_request.number || 'workflow_dispatch' }}
     secrets: inherit
